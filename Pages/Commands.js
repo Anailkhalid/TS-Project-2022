@@ -1,4 +1,11 @@
+const moment = require("moment");
 class Commands {
+
+    now = moment();
+    Date(num) {
+    return now.date() + num;
+
+}
 
 
     /**
@@ -152,5 +159,60 @@ class Commands {
     }
 
 
-}
+
+    async getTextFunction(locator) {
+        return await $(locator).getText();
+      }
+      async findWebElement(locator) {
+        return await $(locator);
+      }
+      async isElementDisplayed(locator) {
+        const element = await this.findWebElement(locator);
+        return await element.isDisplayed();
+      }
+      // general
+      async clickWebElement(locator) {
+        const element = await this.findWebElement(locator);
+        await element.click();
+      }
+      async typeInWebElement(locator, data) {
+        const element = await this.findWebElement(locator);
+        await element.setValue(data);
+      }
+      async selectFromDropdown(locator, selectThis) {
+        const dropdownElement = await this.findWebElement(locator);
+        await dropdownElement.selectByVisibleText(selectThis);
+      }
+      async pauseFor2Seconds() {
+        await browser.pause(2000);
+      }
+      async smallerWindow() {
+        await browser.setWindowSize(300, 800);
+      }
+      async isWebElementEnabled(locator) {
+        const element = await this.findWebElement(locator);
+        return await element.isEnabled();
+      }
+      async waitForClickable (locator){
+        const element = await this.findWebElement(locator)
+        return await element.waitForClickable()
+      }
+      async waitForDisplayed (locator){
+        const element = await this.findWebElement(locator)
+        return await element.waitForDisplayed()
+      }
+      async waitForEnabled (locator){
+        const element = await this.findWebElement(locator)
+        return await element.waitForEnabled()
+      }
+      async scrollIntoViews(locator){
+        const element = await this.findWebElement(locator)
+        return await element.scrollIntoView()
+
+
+    
+        }
+    }
+
+
 module.exports = Commands;
